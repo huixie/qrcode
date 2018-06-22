@@ -166,7 +166,24 @@ extend(qrcode.prototype,{
             loadImage(options.image, function(img){
                 var x = ((ratioSize - ratioImgSize)/2).toFixed(2);
                 var y = ((ratioSize - ratioImgSize)/2).toFixed(2);
+                //阴影
+                ctx.shadowOffsetX = 2;
+                ctx.shadowOffsetY = 2;
+                ctx.shadowColor = "#ccc";
+                ctx.shadowBlur = 6;
+                //绘制图片幕布
+                ctx.lineJoin = "round";  
+                ctx.lineWidth = 20;
+                ctx.strokeStyle='#fff';
+                ctx.strokeRect(x, y, ratioImgSize, ratioImgSize);
+                ctx.shadowBlur = 0;
+                //绘制图片
                 ctx.drawImage(img, x, y, ratioImgSize, ratioImgSize);
+                //绘制图片边框
+                ctx.strokeStyle='#000';
+                ctx.lineWidth=1;
+                ctx.lineJoin = "miter";
+                ctx.strokeRect(x, y, ratioImgSize, ratioImgSize);
             });
         }
         canvas.style.width = size + 'px';
